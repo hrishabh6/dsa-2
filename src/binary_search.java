@@ -184,6 +184,103 @@ public class binary_search {
         return ans;
     }
 
+    //COCO Eating bananas leetcode
+    public int findLargest(int[] arr){
+        int max = Integer.MIN_VALUE;
+        for(int i : arr){
+            max = Math.max(i, max);
+        }
+        return max;
+    }
+
+    public long compute(int[] arr, int k) {
+        long hours = 0;
+        for (int i : arr) {
+            hours += (i + k - 1) / k;
+        }
+        return hours;
+    }
+
+    public int minEatingSpeed(int[] piles, int h) {
+        int low = 1;
+        int high = findLargest(piles);
+        int ans = Integer.MAX_VALUE;
+        while(low <= high){
+            int mid = (low + high)/2;
+            long val = compute(piles, mid);
+            if(val <= h){
+                ans = Math.min(ans, mid);
+                high = mid-1;
+            } else {
+                low = mid+1;
+            }
+        }
+        return ans;
+
+    }
+
+    //Minimum number of days to bloom
+    public int minDays(int[] nums, int m, int k) {
+        if ((long) m * k > nums.length) {
+            return -1;
+        }
+        int low = 1, high = 0;
+        for(int i: nums) high = Math.max(high,i);
+        while(low < high){
+            int mid = low  + (high - low) / 2;
+            if(canmake(nums,m,k,mid)) high = mid;
+            else low = mid + 1;
+        }
+        return low;
+    }
+
+    public boolean canmake(int[] nums, int m, int k, int mid){
+        int sum = 0;
+        int bouquet = 0;
+        for(int i: nums){
+            if(i <= mid){
+                sum++;
+                if(sum == k){
+                    bouquet++;
+                    sum = 0;
+                }
+            }else sum = 0;
+        }
+        return bouquet >= m;
+    }
+
+    //Find the smallest divisor given a threshold
+    //Util fn to check if divisor is crossing threshold
+    public boolean check(int[] arr, int threshold, int mid){
+        int sum = 0;
+        for(int num : arr){
+            sum += (num + mid - 1) / mid; //Substitution for ceil...
+            if(sum > threshold) return false; // early exit
+        }
+        return true;
+    }
+
+    public int max(int[] arr){
+        int max = Integer.MIN_VALUE;
+        for(int num : arr) max = Math.max(max, num);
+        return max;
+    }
+
+    public int smallestDivisor(int[] nums, int threshold) {
+        int low = 1, high = max(nums);
+        int ans = high;
+        while(low <= high){
+            int mid = low + (high - low)/2;
+            if(check(nums, threshold, mid)){
+                ans = mid;
+                high = mid-1;
+            } else {
+                low = mid+1;
+            }
+        }
+        return ans;
+    }
+
 
     public static void main(String[] args) {
         int[] arr1 = {1,2,3,4,5,8,7,6,89,9};
