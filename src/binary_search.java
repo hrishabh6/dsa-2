@@ -281,6 +281,61 @@ public class binary_search {
         return ans;
     }
 
+    //Capacity to ship packages within D days
+    //Sum and max funtion for arr
+    public static int[] getSumAndMax(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return new int[]{0,0};
+        }
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+        for (int num : arr) {
+            sum += num;
+            if (num > max) {
+                max = num;
+            }
+        }
+        return new int[]{sum, max};
+    }
+
+    //Validator function to check if ship can carry weight within D days
+    private boolean validate(int[] arr, int weightCapacity, int days){
+        int daysUsed = 1; // start with day 1
+        int currentLoad = 0;
+
+        for(int weight : arr){
+            if(currentLoad + weight > weightCapacity){
+                // need a new day
+                daysUsed++;
+                currentLoad = 0;
+            }
+            currentLoad += weight;
+
+            //Exit early if days exceed allowed
+            if(daysUsed > days) return false;
+        }
+        return true;
+    }
+
+    //My intution : The search space could be [maxElement(arr), sum(arr)]
+    public int shipWithinDays(int[] weights, int days) {
+        int[] temp = getSumAndMax(weights);
+        int high = temp[0]; // total sum of weights
+        int low = temp[1];  // max weight (at least this much capacity needed)
+        int ans = -1;
+        while(low <= high){
+            int mid = low + (high - low)/2;
+            //If it can carry try smaller
+            if(validate(weights, mid, days)){
+                ans = mid;
+                high =  mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return ans;
+    }
+
 
     public static void main(String[] args) {
         int[] arr1 = {1,2,3,4,5,8,7,6,89,9};
