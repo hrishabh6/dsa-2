@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const { execSync } = require("child_process");
 
-// Get commit message from args
 const args = process.argv;
 const msgIndex = args.indexOf("-m");
 
@@ -20,7 +19,15 @@ try {
     execSync(`git commit -m "${commitMessage}"`, { stdio: "inherit" });
 
     console.log("🔹 Pushing to remote...");
-    execSync("git push", { stdio: "inherit" });
+
+    try {
+        execSync("git push", { stdio: "inherit" });
+    } catch (pushError) {
+        // If push fails due to missing upstream, set it automatically
+        console.log("ℹ️ No upstream branch found. Setting upstream...");
+        const currentBranch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+        execSync(`git push --set-upstream origin ${currentBranch}`, { stdio: "inherit" });
+    }
 
     console.log("✅ All done!");
 } catch (error) {
