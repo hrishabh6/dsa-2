@@ -1,6 +1,7 @@
 package greedy;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class InsertIntervals {
@@ -32,6 +33,33 @@ public class InsertIntervals {
 
         return resultant.toArray(new int[resultant.size()][]);
 
+    }
+
+
+}
+
+class Solution {
+    public int[] plusOne(int[] digits) {
+        //Extract the digit
+        //Use long to avoid overflow
+        int place = 1;
+        long extractNumber = 0;
+        for(int i = digits.length - 1; i >= 0; i--){
+            extractNumber += (long) digits[i] * place;
+            place *= 10;
+        }
+        //Increment the number
+        extractNumber = (long)(extractNumber + 1);
+
+        //Convert back to array
+        List<Integer> list = new ArrayList<>();
+        while(extractNumber > 0){
+            long digit = extractNumber % 10;
+            list.add((int)digit);
+            extractNumber /= 10;
+        }
+        Collections.reverse(list);
+        return list.stream().mapToInt(i -> i).toArray();
     }
 
 
