@@ -1,18 +1,16 @@
 package arrays.hard;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Problem: ThreeSum
  * Difficulty: Based on folder structure
  */
 public class ThreeSum {
-
-
-    /**
-     * Find all unique triplets that sum to zero (Two Pointer Approach)
-     * Time Complexity: O(n²), Space Complexity: O(1) excluding result
-     */
-    public java.util.List<java.util.List<Integer>> threeSum(int[] nums) {
-        java.util.List<java.util.List<Integer>> answer = new java.util.ArrayList<>();
-        java.util.Arrays.sort(nums);
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> answer = new ArrayList<>();
+         Arrays.sort(nums);
 
         for (int i = 0; i < nums.length - 2; i++) {
             // Skip duplicates for first element
@@ -28,7 +26,7 @@ public class ThreeSum {
                 } else if(sum < 0){
                     j++;
                 } else {
-                    answer.add(java.util.Arrays.asList(nums[i], nums[j], nums[k]));
+                    answer.add( Arrays.asList(nums[i], nums[j], nums[k]));
                     j++;
                     k--;
                     // Skip duplicates
@@ -46,17 +44,17 @@ public class ThreeSum {
 
         // Test case 1
         int[] nums1 = {-1, 0, 1, 2, -1, -4};
-        java.util.List<java.util.List<Integer>> result1 = obj.threeSum(nums1);
+         List< List<Integer>> result1 = obj.threeSum(nums1);
         System.out.println("Test 1: " + result1);
 
         // Test case 2
         int[] nums2 = {0, 1, 1};
-        java.util.List<java.util.List<Integer>> result2 = obj.threeSum(nums2);
+         List< List<Integer>> result2 = obj.threeSum(nums2);
         System.out.println("Test 2: " + result2);
 
         // Test case 3
         int[] nums3 = {0, 0, 0};
-        java.util.List<java.util.List<Integer>> result3 = obj.threeSum(nums3);
+         List< List<Integer>> result3 = obj.threeSum(nums3);
         System.out.println("Test 3: " + result3);
     }
 }

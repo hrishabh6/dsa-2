@@ -1,4 +1,5 @@
 package arrays.hard;
+import java.util.*;
 
 /**
  * Problem: FourSum
@@ -11,10 +12,10 @@ public class FourSum {
      * Find all unique quadruplets that sum to target (Two Pointer Approach)
      * Time Complexity: O(n³), Space Complexity: O(1) excluding result
      */
-    public java.util.List<java.util.List<Integer>> fourSum(int[] nums, int target) {
-        java.util.List<java.util.List<Integer>> answer = new java.util.ArrayList<>();
+    public  List< List<Integer>> fourSum(int[] nums, int target) {
+         List< List<Integer>> answer = new  ArrayList<>();
         int n = nums.length;
-        java.util.Arrays.sort(nums);
+         Arrays.sort(nums);
 
         for(int i = 0; i < n - 3; i++) {
             if(i > 0 && nums[i] == nums[i-1]) continue;
@@ -25,7 +26,7 @@ public class FourSum {
                 while(low < high) {
                     long sum = (long)nums[i] + nums[j] + nums[low] + nums[high];
                     if(sum == target) {
-                        answer.add(java.util.Arrays.asList(nums[i], nums[j], nums[low], nums[high]));
+                        answer.add( Arrays.asList(nums[i], nums[j], nums[low], nums[high]));
                         low++;
                         high--;
                         while(low < high && nums[low] == nums[low-1]) low++;
@@ -46,19 +47,19 @@ public class FourSum {
         // Test case 1
         int[] nums1 = {1, 0, -1, 0, -2, 2};
         int target1 = 0;
-        java.util.List<java.util.List<Integer>> result1 = obj.fourSum(nums1, target1);
+         List< List<Integer>> result1 = obj.fourSum(nums1, target1);
         System.out.println("Test 1: " + result1);
 
         // Test case 2
         int[] nums2 = {2, 2, 2, 2, 2};
         int target2 = 8;
-        java.util.List<java.util.List<Integer>> result2 = obj.fourSum(nums2, target2);
+         List< List<Integer>> result2 = obj.fourSum(nums2, target2);
         System.out.println("Test 2: " + result2);
 
         // Test case 3
         int[] nums3 = {1000000000, 1000000000, 1000000000, 1000000000};
         int target3 = -294967296;
-        java.util.List<java.util.List<Integer>> result3 = obj.fourSum(nums3, target3);
+         List< List<Integer>> result3 = obj.fourSum(nums3, target3);
         System.out.println("Test 3: " + result3);
     }
 }
